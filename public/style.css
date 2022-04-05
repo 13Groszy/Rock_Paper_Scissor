@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 500px;
+  margin: auto;
+  text-align: center;
+}
+
+body h1, body img {
+  margin-block: 1rem;
+}
+
+body img {
+  width: 50%;
+}
+
+.elements__choice {
+  display: flex;
+  justify-content: space-between;
+}
