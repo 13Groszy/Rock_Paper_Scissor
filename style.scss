@@ -19,5 +19,14 @@ body{
     &__choice{
         display: flex;
         justify-content: space-between;
+        
+        &__answer{
+            img{
+                cursor: pointer;
+            }
+        }
+        .selected{
+            background-color: red;
+        }
     }
 }

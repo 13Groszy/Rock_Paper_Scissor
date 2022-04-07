@@ -21,3 +21,11 @@ body img {
   display: flex;
   justify-content: space-between;
 }
+
+.elements__choice__answer img {
+  cursor: pointer;
+}
+
+.elements__choice .selected {
+  background-color: red;
+}
