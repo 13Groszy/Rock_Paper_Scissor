@@ -18,15 +18,29 @@ body{
 
     &__choice{
         display: flex;
-        justify-content: space-between;
+        gap:0;
+        justify-content: center;
+        position: relative;
         
         &__answer{
             img{
                 cursor: pointer;
+                width:100%;
             }
+
+            margin-bottom: 3.5rem;
+        }
+        &__description{
+            display:none;
         }
         .selected{
-            background-color: red;
+            div{
+                display: block;
+                position: absolute;
+                width:80%;
+                top: 110px;
+                left:10%;
+            }
         }
     }
 }

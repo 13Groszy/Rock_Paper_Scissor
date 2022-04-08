@@ -19,13 +19,28 @@ body img {
 
 .elements__choice {
   display: flex;
-  justify-content: space-between;
+  gap: 0;
+  justify-content: center;
+  position: relative;
+}
+
+.elements__choice__answer {
+  margin-bottom: 3.5rem;
 }
 
 .elements__choice__answer img {
   cursor: pointer;
+  width: 100%;
 }
 
-.elements__choice .selected {
-  background-color: red;
+.elements__choice__description {
+  display: none;
+}
+
+.elements__choice .selected div {
+  display: block;
+  position: absolute;
+  width: 80%;
+  top: 110px;
+  left: 10%;
 }
