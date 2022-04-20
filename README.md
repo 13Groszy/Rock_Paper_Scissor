@@ -2,7 +2,7 @@
 Rock paper scissor game expanded to 5 elements!
 
 # Above code you can see there:
-// https://rockpaperscissorby13.netlify.app // > Temporary under maintenance.
+https://rockpaperscissorby13.netlify.app
 
 # Technology used:
 HTML, SCSS, JavaScript
