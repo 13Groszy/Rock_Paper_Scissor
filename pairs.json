@@ -1,0 +1,45 @@
+[
+    {
+    "pairs":{
+        "fire":{
+        "fire": null,
+        "wood":true,
+        "water":false,
+        "metal":true,
+        "earth":false
+        },
+        "wood":{
+            "fire":false,
+            "wood":null,
+            "water":true,
+            "metal":false,
+            "earth":true
+
+        },
+        "water":{
+            "fire":true,
+            "wood":false,
+            "water":null,
+            "metal":true,
+            "earth":false
+
+        },
+        "metal":{
+            "fire":false,
+            "wood":true,
+            "water":false,
+            "metal":null,
+            "earth":true
+
+        },
+        "earth":{
+            "fire":true,
+            "wood":false,
+            "water":true,
+            "metal":false,
+            "earth":null
+
+        }
+    }
+}
+]

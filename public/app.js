@@ -1,3 +1,9 @@
+const pairs = import('../pairs.json', {
+    assert: {
+        type: 'json'
+    }
+});
+
 const choices = ["fire", "wood", "water", "metal", "earth"];
 let highScoreStorage = localStorage;
 let score = 0;
@@ -29,7 +35,6 @@ let createSelect = () => {
   })
 }
 createSelect()
-// .2 Remove selection
 
 // .3 Display selected description
 
@@ -52,78 +57,47 @@ const generateComputerChoice = () => {
 }
 const getPlayerChoice = () => {
     let selectedValue = document.querySelector(".selected")
-    if (player.choice == null) {
-        null
-    }else{
-
-    player.choice = selectedValue.children[0].getAttribute('alt');
+    if (player.choice !== null) {
+        player.choice = selectedValue.children[0].getAttribute('alt');
     }
-    
+
     return player.choice
 }
+const displayResult = (playerChoice, computerChoice, result) => {
+    resultDisplay.innerHTML = `Your element ${playerChoice} ${result} against computer element ${computerChoice}`;
+}
 
-//Compare choices/selectwinner
-const selectWinner = () =>{
-    let result = null;
-    generateComputerChoice();
-    getPlayerChoice();
 
-    if (player.choice !== null) {
-        switch(player.choice+computer.choice){
-            //Win choice
-            case "firewood":
-            case "firemetal":
-            case "earthfire":
-            case "earthwater":
-            case "woodearth":
-            case "woodwater":
-            case "metalwood":
-            case "metalearth":
-            case "waterfire":
-            case "watermetal":
-                result = "win";
-                score++;
-                round++;
-                resultDisplay.innerHTML = `Your element ${player.choice} ${result} against computer element: ${computer.choice}`;
-                break;
-            //Lose choice
-            case "firewater":
-            case "fireearth":
-            case "earthwood":
-            case "earthmetal":
-            case "woodfire":
-            case "woodmetal":
-            case "metalfire":
-            case "metalwater":
-            case "waterwood":
-            case "waterearth":
-                result = "lose";
-                round++;
-                resultDisplay.innerHTML = `Your element ${player.choice} ${result} against computer element: ${computer.choice}`;
-                break;
-            //Draw choice
-            case "firefire":
-            case "earthearth":
-            case "woodwood":
-            case "metalmetal":
-            case "waterwater":
-                result = "draw";
-                round++;
-                resultDisplay.innerHTML = `Your element ${player.choice} ${result} against computer element: ${computer.choice}`;
-                break;
-        }
-    }else{
-        resultDisplay.innerHTML = `Select your element to play!`
-    }
-    scoreDisplay.innerHTML = score + "/" + round;
-
-//Update score & highscore - localstorage
+const selectWinner = () => {
     if (round === 20) {
         if (score > highScoreStorage.getItem('highScore')) {
             highScoreStorage.setItem('highScore', score)
         }
         resetGame();
+    }else{
+        getPlayerChoice();
+        generateComputerChoice();
+
+        pairs
+    .then((value =>{
+        let result = value.default[0].pairs[player.choice][computer.choice]
+        if (result === true) {
+            displayResult(player.choice, computer.choice, "won")
+            score++;
+            round++;
+        } else if (result === false) {
+            displayResult(player.choice, computer.choice, "lose")
+            round++;
+        } else {
+            displayResult(player.choice, computer.choice, "draw")
+            round++;
+        }
+        scoreDisplay.innerHTML = score + "/" + round;
+
+    }))
+    .catch((err) =>[
+        resultDisplay.innerHTML = `Select your element to play!`,
+        console.log(err)
+    ])
     }
-    
 }
-//Reset highscore
