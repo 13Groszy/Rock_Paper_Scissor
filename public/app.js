@@ -1,8 +1,4 @@
-const pairs = import('../pairs.json', {
-    assert: {
-        type: 'json'
-    }
-});
+const pairs = fetch('../pairs.json').then(response => response.json());
 
 const choices = ["fire", "wood", "water", "metal", "earth"];
 let highScoreStorage = localStorage;
@@ -47,21 +43,17 @@ const resetGame = () =>{
 const resetHighScore = () =>{
     highScoreStorage.setItem('highScore', 0);
     highScoreDisplay.innerHTML = highScoreStorage.getItem('highScore')
-
 }
 
 //Generate computer choice
 const generateComputerChoice = () => {
     computer.choice = choices[Math.floor(Math.random() * choices.length)]
-    return computer.choice
 }
 const getPlayerChoice = () => {
     let selectedValue = document.querySelector(".selected")
     if (player.choice !== null) {
         player.choice = selectedValue.children[0].getAttribute('alt');
     }
-
-    return player.choice
 }
 const displayResult = (playerChoice, computerChoice, result) => {
     resultDisplay.innerHTML = `Your element ${playerChoice} ${result} against computer element ${computerChoice}`;
@@ -80,22 +72,17 @@ const selectWinner = () => {
 
         pairs
     .then((value =>{
-        let result = value.default[0].pairs[player.choice][computer.choice]
-        if (result === true) {
-            displayResult(player.choice, computer.choice, "won")
-            score++;
+        const result = value[0].pairs[player.choice][computer.choice]
+        if (result === null) displayResult(player.choice, computer.choice, "draw");
+        else if (result) displayResult(player.choice, computer.choice, "won"), score++;
+        else displayResult(player.choice, computer.choice, "lose");
             round++;
-        } else if (result === false) {
-            displayResult(player.choice, computer.choice, "lose")
-            round++;
-        } else {
-            displayResult(player.choice, computer.choice, "draw")
-            round++;
-        }
-        scoreDisplay.innerHTML = score + "/" + round;
+            scoreDisplay.innerHTML = score + "/" + round;
+        
 
     }))
     .catch((err) =>[
+        //Element is not choosed at the start, if user don't select it will be reminded with following warning and error in console.
         resultDisplay.innerHTML = `Select your element to play!`,
         console.log(err)
     ])
